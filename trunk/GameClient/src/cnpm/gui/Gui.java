@@ -22,7 +22,7 @@ public abstract class Gui extends JFrame implements ActionListener {
 		
 		this.game = game;
 		
-		this.setSize(1000, 550);
+		this.setSize(1000, 650);
 		this.setResizable(false);
 		this.setLayout(null);
 		this.setLocation(location);
@@ -31,13 +31,13 @@ public abstract class Gui extends JFrame implements ActionListener {
 		
 		pnMain = new MyPanel(imageBackGround);
 		pnMain.setLayout(null);
-		pnMain.setBounds(0, 0, 995, 529);
+		pnMain.setBounds(0, 0, 995, 645);
 		this.add(pnMain);
 		
 		pnEffect = new JPanel();
 		pnEffect.setLayout(null);
 		pnEffect.setOpaque(false);
-		pnEffect.setBounds(0, 0, 1000, 550);
+		pnEffect.setBounds(0, 0, 1000, 650);
 		pnMain.add(pnEffect);
 	}
 		
