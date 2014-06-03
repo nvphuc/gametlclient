@@ -26,7 +26,6 @@ public abstract class Gui extends JFrame implements ActionListener {
 		this.setResizable(false);
 		this.setLayout(null);
 		this.setLocation(location);
-		//this.setUndecorated(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		pnMain = new MyPanel(imageBackGround);
@@ -52,5 +51,6 @@ public abstract class Gui extends JFrame implements ActionListener {
 	public SoundManager getSoundManager() {
 		return game.soundManager;
 	}
+	
 	abstract public void setGui();
 }
