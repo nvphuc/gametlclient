@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.border.BevelBorder;
@@ -20,17 +21,17 @@ import javax.swing.border.BevelBorder;
 import cnpm.gui.Gui;
 
 public class MyInputDialog {
-	
+
 	private String strInput;
 	private int choice = -1;
-	private String[] args = {"ĐỒNG Ý", "HỦY"};
+	private String[] args = { "ĐỒNG Ý", "HỦY" };
 	private JButton[] buttons;
 	private JTextField tfInput;
 	private JPanel pnMain;
 	private Image image;
 	private int width = 0, height = 0;
-	
-	public String showMessage(Gui gui, String title, String content) {
+
+	public String showMessage(Gui gui, int type, String title, String content) {
 
 		// Tao panel
 		JPanel pnContain = new JPanel();
@@ -51,16 +52,20 @@ public class MyInputDialog {
 		pnContain.add(lbContent);
 
 		// Tao textfiel input
-		tfInput = new JTextField();
+		if (type == 0) {
+			tfInput = new JTextField();
+		} else {
+			tfInput = new JPasswordField();
+		}
 		int tfWidth = 200;
-		if(lbWidth > tfWidth) {
+		if (lbWidth > tfWidth) {
 			tfWidth = lbWidth;
 		}
 		int tfHeight = 20;
-		
+
 		tfInput.setBounds(0, lbHeight + 10, tfWidth, tfHeight);
 		pnContain.add(tfInput);
-		
+
 		// Tao cac button
 		int btWidth = 0;
 
@@ -68,22 +73,21 @@ public class MyInputDialog {
 		for (int i = 0; i < buttons.length; i++) {
 			buttons[i] = new JButton(this.args[i]);
 			buttons[i].addActionListener(new ActionListener() {
-				
+
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					for (int i = 0; i < buttons.length; i++) {
 						JButton button = (JButton) e.getSource();
 						if (button == buttons[i]) {
 							choice = i;
-							if(choice == 0) {
+							if (choice == 0) {
 								strInput = tfInput.getText();
-							}
-							else {
+							} else {
 								strInput = null;
 							}
-							SwingUtilities.getWindowAncestor(button).dispose();	
+							SwingUtilities.getWindowAncestor(button).dispose();
 						}
-					}			
+					}
 				}
 			});
 			if (btWidth < buttons[i].getPreferredSize().width) {
@@ -106,11 +110,12 @@ public class MyInputDialog {
 		int pnConWidth = 0;
 		if (tfWidth > pnBTWidth) {
 			pnConWidth = tfWidth;
-			pnButton.setBounds((tfWidth - pnBTWidth) / 2, lbHeight + tfHeight + 30,
-					pnBTWidth, pnBTHeight);
+			pnButton.setBounds((tfWidth - pnBTWidth) / 2, lbHeight + tfHeight
+					+ 30, pnBTWidth, pnBTHeight);
 		} else {
 			pnConWidth = pnBTWidth;
-			pnButton.setBounds(0, lbHeight + tfHeight + 30, pnBTWidth, pnBTHeight);
+			pnButton.setBounds(0, lbHeight + tfHeight + 30, pnBTWidth,
+					pnBTHeight);
 		}
 		pnContain.add(pnButton);
 
@@ -120,8 +125,7 @@ public class MyInputDialog {
 		width = (int) (pnConWidth / 0.72);
 		pnContain.setBounds((width - pnConWidth) / 2, height * 14 / 100,
 				pnConWidth, pnConHeight);
-		
-		
+
 		image = (new ImageIcon("images/BackGroundMessageBox.png")).getImage();
 		pnMain = new JPanel() {
 			@Override
@@ -135,17 +139,17 @@ public class MyInputDialog {
 		pnMain.setBorder(new BevelBorder(BevelBorder.RAISED));
 		pnMain.add(pnContain);
 		pnMain.setPreferredSize(new Dimension(width, height));
-        
-        JDialog dialog = new JDialog();
-        dialog.setUndecorated(true);
-        dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-        dialog.setModal(true);
-        dialog.setTitle(title);
-        dialog.getContentPane().add(pnMain);
-        dialog.pack();
-        dialog.setLocationRelativeTo(gui);
-        dialog.setVisible(true);
-		
+
+		JDialog dialog = new JDialog();
+		dialog.setUndecorated(true);
+		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		dialog.setModal(true);
+		dialog.setTitle(title);
+		dialog.getContentPane().add(pnMain);
+		dialog.pack();
+		dialog.setLocationRelativeTo(gui);
+		dialog.setVisible(true);
+
 		return strInput;
 	}
 }
