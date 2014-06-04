@@ -74,39 +74,44 @@ public class ProcessorGuiEdit extends Processor {
 	public void sendUpdateUserName(String newUserName) {
 		if (!newUserName.equals(getPlayer().getUsername())) {
 			MyInputDialog inputDialog = new MyInputDialog();
-			String pass2 = inputDialog.showMessage(gui, "Inform",
+			String pass2 = inputDialog.showMessage(gui, 1, "Inform",
 					"Nhập mật khẩu bảo mật (Pass 2): ");
-			getConnector().sendMessage(
-					"UpdateUserName@" + newUserName + ":" + pass2);
-			String result = getConnector().receiveMessage();
-			if (result.equals("OK")) {
-				getPlayer().setUsername(newUserName);
-				String[] bt = { "XÁC NHẬN" };
-				new MyDialog().showMessage(gui, "", "ĐỔI USERNAME THÀNH CÔNG",
-						bt);
+			if (pass2 != null) {
+				getConnector().sendMessage(
+						"UpdateUserName@" + newUserName + ":" + pass2);
+				String result = getConnector().receiveMessage();
+				if (result.equals("OK")) {
+					getPlayer().setUsername(newUserName);
+					String[] bt = { "XÁC NHẬN" };
+					new MyDialog().showMessage(gui, "",
+							"ĐỔI USERNAME THÀNH CÔNG", bt);
 
-			} else {
-				String[] bt = { "XÁC NHẬN" };
-				new MyDialog()
-						.showMessage(gui, "", "ĐỔI USERNAME THẤT BẠI", bt);
+				} else {
+					String[] bt = { "XÁC NHẬN" };
+					new MyDialog().showMessage(gui, "",
+							"ĐỔI USERNAME THẤT BẠI", bt);
+				}
 			}
 		}
 	}
 
 	public void sendUpdatePassword(String newPass) {
 		MyInputDialog inputDialog = new MyInputDialog();
-		String pass2 = inputDialog.showMessage(gui, "Inform",
+		String pass2 = inputDialog.showMessage(gui, 1, "Inform",
 				"Nhập mật khẩu bảo mật (Pass 2): ");
-		getConnector().sendMessage(
-				"UpdatePass@" + newPass + ":" + pass2);
-		String result = getConnector().receiveMessage();
-		if (result.equals("OK")) {
-			String[] bt = { "XÁC NHẬN" };
-			new MyDialog().showMessage(gui, "", "ĐỔI PASSWORD THÀNH CÔNG", bt);
+		if (pass2 != null) {
+			getConnector().sendMessage("UpdatePass@" + newPass + ":" + pass2);
+			String result = getConnector().receiveMessage();
+			if (result.equals("OK")) {
+				String[] bt = { "XÁC NHẬN" };
+				new MyDialog().showMessage(gui, "", "ĐỔI PASSWORD THÀNH CÔNG",
+						bt);
 
-		} else {
-			String[] bt = { "XÁC NHẬN" };
-			new MyDialog().showMessage(gui, "", "ĐỔI PASSWORD THẤT BẠI", bt);
+			} else {
+				String[] bt = { "XÁC NHẬN" };
+				new MyDialog()
+						.showMessage(gui, "", "ĐỔI PASSWORD THẤT BẠI", bt);
+			}
 		}
 	}
 }
