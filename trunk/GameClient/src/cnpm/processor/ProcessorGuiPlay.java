@@ -14,7 +14,6 @@ import cnpm.connector.InforTable;
 import cnpm.gui.Gui;
 import cnpm.gui.GuiPlay;
 
-
 public class ProcessorGuiPlay extends Processor implements Runnable {
 
 	private boolean isRunning;
@@ -36,86 +35,70 @@ public class ProcessorGuiPlay extends Processor implements Runnable {
 			String[] data;
 
 			switch (args[0]) {
-			
+
 			case "InforTable":
 				InforTable inforTable = getConnector().receiveInforTable();
 				displayPlayers(inforTable);
 				break;
-			
+
 			default:
 				isRunning = false;
 				break;
 			}
-			/*if ("InforRoom".equals(s[0])) {
-				InforTable inforRoom = receiveInforTable();
-				this.maxPlayer = inforRoom.getInforPlayers().length;
-				displayRoom(inforRoom);
-			}
-
-			// nhan tin hieu san sang tu server
-			if ("Ready".equals(s[0])) {// ok
-				displyReady(s[1]);
-			}
-
-			// nhan cac quan bai
-			if ("DealCards".equals(s[0])) {// ok
-				showCards(s[1]);
-			}
-
-			if ("NewTurn".equals(s[0])) {// ok
-				clearTableCards();
-				if(Integer.parseInt(s[1]) == orderNumber)
-					((GuiPlay) gui).btHitCards.setEnabled(true);
-				
-			}
-
-			// nhan quan bai rac
-			if ("HitCards".equals(s[0])) {// ok
-				showHitCards(s[1]);
-			}
-			
-			if ("ResultHitCards".equals(s[0])) {// ok
-				if (!s[1].equals("OK")) {
-					JOptionPane.showMessageDialog(gui, "Bạn không thể đánh",
-							"Lỗi đánh bài", JOptionPane.INFORMATION_MESSAGE);
-				}
-			}
-
-			// neu nhan tin hieu boc bai
-			if ("Turn".equals(s[0])) {// ok
-				((GuiPlay) gui).btHitCards.setEnabled(true);
-				((GuiPlay) gui).btSkipTurn.setEnabled(true);
-			}
-
-			// nhan tin hieu chuan bi
-			if ("PrepareNewGame".equals(s[0])) {// ok
-				resetAll();
-			}
-
-			if ("Chat".equals(s[0])) {
-				((GuiPlay) gui).txtContent.append(strChat.substring(5) + "\n");
-			}
-
-			if ("Over".equals(s[0])) {// ok
-				showOver(s[1]);
-			}*/
+			/*
+			 * if ("InforRoom".equals(s[0])) { InforTable inforRoom =
+			 * receiveInforTable(); this.maxPlayer =
+			 * inforRoom.getInforPlayers().length; displayRoom(inforRoom); }
+			 * 
+			 * // nhan tin hieu san sang tu server if ("Ready".equals(s[0])) {//
+			 * ok displyReady(s[1]); }
+			 * 
+			 * // nhan cac quan bai if ("DealCards".equals(s[0])) {// ok
+			 * showCards(s[1]); }
+			 * 
+			 * if ("NewTurn".equals(s[0])) {// ok clearTableCards();
+			 * if(Integer.parseInt(s[1]) == orderNumber) ((GuiPlay)
+			 * gui).btHitCards.setEnabled(true);
+			 * 
+			 * }
+			 * 
+			 * // nhan quan bai rac if ("HitCards".equals(s[0])) {// ok
+			 * showHitCards(s[1]); }
+			 * 
+			 * if ("ResultHitCards".equals(s[0])) {// ok if (!s[1].equals("OK"))
+			 * { JOptionPane.showMessageDialog(gui, "Bạn không thể đánh",
+			 * "Lỗi đánh bài", JOptionPane.INFORMATION_MESSAGE); } }
+			 * 
+			 * // neu nhan tin hieu boc bai if ("Turn".equals(s[0])) {// ok
+			 * ((GuiPlay) gui).btHitCards.setEnabled(true); ((GuiPlay)
+			 * gui).btSkipTurn.setEnabled(true); }
+			 * 
+			 * // nhan tin hieu chuan bi if ("PrepareNewGame".equals(s[0])) {//
+			 * ok resetAll(); }
+			 * 
+			 * if ("Chat".equals(s[0])) { ((GuiPlay)
+			 * gui).txtContent.append(strChat.substring(5) + "\n"); }
+			 * 
+			 * if ("Over".equals(s[0])) {// ok showOver(s[1]); }
+			 */
 		}
 	}
-	
+
 	private void displayPlayers(InforTable inforTable) {
 		// TODO Auto-generated method stub
-		
-	}
 
+	}
+/*
 	private void showOver(String s) {
 		String[] data = s.split(":");
-		
+
 		if ((4 + Integer.parseInt(data[0]) - orderNumber) % 4 == 0) {
 			JOptionPane.showMessageDialog(gui,
 					"V�? thứ " + Integer.parseInt(data[1]), "Thông Báo",
 					JOptionPane.INFORMATION_MESSAGE);
 		}
-		((GuiPlay) gui).lbMessage[(4 + Integer.parseInt(data[0]) - orderNumber) % 4].setText("V�? thứ " + Integer.parseInt(data[1]));	
+		((GuiPlay) gui).lbMessage[(4 + Integer.parseInt(data[0]) - orderNumber) % 4]
+				.setText("V�? thứ " + Integer.parseInt(data[1]));
 	}
 
 	private void displayRoom(InforTable inforRoom) {
@@ -154,16 +137,16 @@ public class ProcessorGuiPlay extends Processor implements Runnable {
 
 	// xu ly nut ready
 	public void ready() {
-		//this.pressReady = true;
+		// this.pressReady = true;
 		sendReady();
 	}
 
 	public void sendReady() {
-		//if (this.pressReady == true) {
-			//this.pressReady = false;
-			((GuiPlay) gui).btReady.setEnabled(false);
-			getConnector().sendMessage("Ready@NONE");
-		//}
+		// if (this.pressReady == true) {
+		// this.pressReady = false;
+		((GuiPlay) gui).btReady.setEnabled(false);
+		getConnector().sendMessage("Ready@NONE");
+		// }
 	}
 
 	// xu ly nut boluot
@@ -187,8 +170,8 @@ public class ProcessorGuiPlay extends Processor implements Runnable {
 		}
 
 		if (cards.equals("")) {
-			JOptionPane.showMessageDialog(gui, "Hãy ch�?n bài", "Lỗi đánh bài",
-					JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(gui, "Hãy ch�?n bài",
+					"Lỗi đánh bài", JOptionPane.INFORMATION_MESSAGE);
 			return;
 		}
 		getConnector().sendMessage("HitCards@" + cards);
@@ -240,7 +223,7 @@ public class ProcessorGuiPlay extends Processor implements Runnable {
 	}
 
 	// hien tung quan bai cua nguoi choi luc moi chia
-	public void showCards(String mes) {
+	/*public void showCards(String mes) {
 		String[] cards = parseCards(mes);
 		sortCards(cards);
 		for (int i = 0; i < 13; i++) {
@@ -249,6 +232,21 @@ public class ProcessorGuiPlay extends Processor implements Runnable {
 			((GuiPlay) gui).handcards2[i].setImage("100");
 			((GuiPlay) gui).handcards3[i].setImage("100");
 			((GuiPlay) gui).handcards4[i].setImage("100");
+		}
+	}*/
+
+	/**
+	 * Phuc
+	 * @param msg
+	 */
+/*	public void showDealerCards(String msg) {
+		GuiPlay gui = (GuiPlay) this.gui;	
+		String[] cards = parseCards(msg);
+		for(int i = 0; i < gui.tableSize; i++) {
+			gui.playerDesk[i].initCards();
+		}
+		for(int i = 0; i < 13 ;i++) {
+			gui.playerDesk[0].getCard(i).setImage(cards[i]);
 		}
 	}
 
@@ -286,7 +284,7 @@ public class ProcessorGuiPlay extends Processor implements Runnable {
 			showTableCards(3, data[1]);
 			break;
 		}
-		
+
 		((GuiPlay) gui).btHitCards.setEnabled(false);
 		((GuiPlay) gui).btSkipTurn.setEnabled(false);
 	}
@@ -302,8 +300,8 @@ public class ProcessorGuiPlay extends Processor implements Runnable {
 
 	private void showTableCards(int location, String listCards) {
 		String[] cards = parseCards(listCards);
-		
-		switch(location) {
+
+		switch (location) {
 		case 0:
 			for (int i = 0; i < 13; i++) {
 				if (((GuiPlay) gui).tablecards1[i].getIcon() == null
@@ -312,7 +310,7 @@ public class ProcessorGuiPlay extends Processor implements Runnable {
 				}
 			}
 			break;
-		
+
 		case 1:
 			for (int i = 0; i < 13; i++) {
 				if (((GuiPlay) gui).tablecards2[i].getIcon() == null
@@ -321,7 +319,7 @@ public class ProcessorGuiPlay extends Processor implements Runnable {
 				}
 			}
 			break;
-			
+
 		case 2:
 			for (int i = 0; i < 13; i++) {
 				if (((GuiPlay) gui).tablecards3[i].getIcon() == null
@@ -330,7 +328,7 @@ public class ProcessorGuiPlay extends Processor implements Runnable {
 				}
 			}
 			break;
-			
+
 		case 3:
 			for (int i = 0; i < 13; i++) {
 				if (((GuiPlay) gui).tablecards4[i].getIcon() == null
@@ -339,7 +337,7 @@ public class ProcessorGuiPlay extends Processor implements Runnable {
 				}
 			}
 			break;
-		}	
+		}
 	}
 
 	// reset cac bien giao dien
@@ -356,7 +354,7 @@ public class ProcessorGuiPlay extends Processor implements Runnable {
 		((GuiPlay) gui).btHitCards.setEnabled(false);
 		((GuiPlay) gui).btSkipTurn.setEnabled(false);
 		((GuiPlay) gui).btReady.setEnabled(true);
-		//pressReady = false;
+		// pressReady = false;
 
 		// cac the bai rac cua nguoi choi
 		for (int i = 0; i < ((GuiPlay) gui).tablecards1.length; i++) {
@@ -367,9 +365,10 @@ public class ProcessorGuiPlay extends Processor implements Runnable {
 		}
 
 	}
-	
+
 	public InforTable receiveInforTable() {
 		return ((GuiPlay) gui).getGame().getConnector().receiveInforTable();
 	}
+	*/
 
 }
