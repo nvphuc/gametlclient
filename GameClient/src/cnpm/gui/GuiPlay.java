@@ -28,23 +28,27 @@ public class GuiPlay extends Gui {
 
 	public int tableSize;
 	
+	// hien thi vi tri ghe cua nguoi choi
 	public PlayerDesk[] playerDesk;
 
+	// vung danh cac la bai xuong ban
 	public PanelHoldCards[] pnTableCards;
+	
+	// hien thi mat ban
+	public JLabel lbTable;
 	
 	public JPanel pnTableCard1, pnTableCard3, pnTableCard4, pnTableCard2;
 
 	// Nut danh bai, bo luot, san sang
 	public JButton btHitCards, btSkipTurn, btReady;
 
-	
-
+	// Khung chat
 	public JPanel pnChat;
 	public JScrollPane scrollPaneChat;
 	public JTextArea txtContent;
 	public JTextField txtChat;
 	public JButton btSendChat;
-	public JLabel lbTable;
+	
 	
 	public GuiPlay(Game game, Point location, int tableSize) {
 		super(game, location, "BackGround1");
@@ -58,6 +62,17 @@ public class GuiPlay extends Gui {
 
 	@Override
 	public void setGui() {
+		
+		// Tao mat ban
+		lbTable = new JLabel() {
+			@Override
+			protected void paintComponent(Graphics g) {
+				ImageIcon image = new ImageIcon("images/TablePlay.png");
+				g.drawImage(image.getImage(), 0, 0, getWidth(), getHeight(), null);
+			}
+		};
+		lbTable.setBounds(250, 150, 500, 280);
+		pnMain.add(lbTable);
 		
 		// Tao tabledesk
 		playerDesk = new PlayerDesk[tableSize];
@@ -94,6 +109,10 @@ public class GuiPlay extends Gui {
 			}
 		}
 		
+		// Test
+		for(int i = 0; i < tableSize; i++) {
+			pnTableCards[i].setOpaque(true);
+		}
 		
 		// nut danh bai
 		btHitCards = new JButton("Ä�Ã¡nh BÃ i");
@@ -145,16 +164,6 @@ public class GuiPlay extends Gui {
 		btSendChat.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		btSendChat.setBounds(233, 153, 40, 25);
 		pnChat.add(btSendChat);
-		
-		lbTable = new JLabel() {
-			@Override
-			protected void paintComponent(Graphics g) {
-				ImageIcon image = new ImageIcon("images/TablePlay.png");
-				g.drawImage(image.getImage(), 0, 0, getWidth(), getHeight(), null);
-			}
-		};
-		lbTable.setBounds(250, 150, 500, 280);
-		pnMain.add(lbTable);
 		
 		setVisible(true);
 	}

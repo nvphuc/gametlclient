@@ -26,7 +26,8 @@ public class GuiWaitingRoom extends Gui {
 	public MyJScrollPane scrollPaneTable;
 
 	public Table[] tables = new Table[100];
-	private JButton btCreateTable, btPlayRight, btUpdate, btLogout, btEdit;
+	private JButton btCreateTable, btPlayRight, btUpdate, btLogout, btEdit,
+			btSetting;
 
 	public JLabel lbAvatar, lbUsername, lbImgMoney, lbMoney;
 
@@ -53,7 +54,8 @@ public class GuiWaitingRoom extends Gui {
 			@Override
 			protected void paintComponent(Graphics g) {
 				super.paintComponent(g);
-				g.drawImage(game.getPlayer().getAvatar().getImage(), 0, 0, getWidth(), getHeight(), this);
+				g.drawImage(game.getPlayer().getAvatar().getImage(), 0, 0,
+						getWidth(), getHeight(), this);
 			}
 		};
 		lbAvatar.setBounds(10, 10, 80, 80);
@@ -70,7 +72,7 @@ public class GuiWaitingRoom extends Gui {
 		lbImgMoney.setBounds(105, 60, 26, 16);
 		pnPlayer.add(lbImgMoney);
 
-		lbMoney = new JLabel(game.getPlayer().getMoney() + "");
+		lbMoney = new JLabel(game.getPlayer().getCredit() + "");
 		lbMoney.setFont(new Font("Serif", Font.ITALIC | Font.BOLD, 15));
 		lbMoney.setForeground(Color.yellow);
 		lbMoney.setBounds(140, 57, lbMoney.getPreferredSize().width,
@@ -78,13 +80,15 @@ public class GuiWaitingRoom extends Gui {
 		pnPlayer.add(lbMoney);
 
 		// Tao cac button
-		btCreateTable = new MyButton("btCreateTable", "btCreateTable_MouseOver", "btCreateTable");
+		btCreateTable = new MyButton("btCreateTable",
+				"btCreateTable_MouseOver", "btCreateTable");
 		btCreateTable.addActionListener(this);
 		btCreateTable.setBounds(750, 200,
 				btCreateTable.getPreferredSize().width,
 				btCreateTable.getPreferredSize().height);
 
-		btPlayRight = new MyButton("btPlayRight", "btPlayRight_MouseOver", "btPlayRight");
+		btPlayRight = new MyButton("btPlayRight", "btPlayRight_MouseOver",
+				"btPlayRight");
 		btPlayRight.addActionListener(this);
 		btPlayRight.setBounds(750, 350, btPlayRight.getPreferredSize().width,
 				btPlayRight.getPreferredSize().height);
@@ -94,12 +98,17 @@ public class GuiWaitingRoom extends Gui {
 		btUpdate.setBounds(55, 480, btUpdate.getPreferredSize().width,
 				btUpdate.getPreferredSize().height);
 
-		btEdit = new MyButton("btEdit", "btEdit_MouseOver", "btEdit");
+		btEdit = new MyButton("btEdit", "btEdit_Over", "btEdit");
 		btEdit.addActionListener(this);
 		btEdit.setBounds(740, 15, btEdit.getPreferredSize().width,
 				btEdit.getPreferredSize().height);
 
-		btLogout = new MyButton("btLogout", "btLogout_MouseOver", "btLogout");
+		btSetting = new MyButton("btSet", "btSet_Over", "btSet");
+		btSetting.addActionListener(this);
+		btSetting.setBounds(795, 15, btSetting.getPreferredSize().width,
+				btSetting.getPreferredSize().height);
+
+		btLogout = new MyButton("btLogout", "btLogout_Over", "btThoat");
 		btLogout.addActionListener(this);
 		btLogout.setBounds(850, 15, btLogout.getPreferredSize().width,
 				btLogout.getPreferredSize().height);
@@ -121,6 +130,7 @@ public class GuiWaitingRoom extends Gui {
 		pnMain.add(btPlayRight);
 		pnMain.add(btUpdate);
 		pnMain.add(btEdit);
+		pnMain.add(btSetting);
 		pnMain.add(btLogout);
 
 		((ProcessorGuiWaitingRoom) processor).updateTables();
@@ -131,12 +141,12 @@ public class GuiWaitingRoom extends Gui {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		ProcessorGuiWaitingRoom processor = (ProcessorGuiWaitingRoom) this.processor;
-		
+
 		if (e.getSource() == btCreateTable) {
 			processor.createTable();
 			return;
 		}
-		
+
 		if (e.getSource() == btEdit) {
 			processor.editAccount();
 			return;
@@ -146,14 +156,19 @@ public class GuiWaitingRoom extends Gui {
 			processor.logout();
 			return;
 		}
-		
+
 		if (e.getSource() == btPlayRight) {
 			processor.playRight();
 			return;
 		}
-		
+
 		if (e.getSource() == btUpdate) {
 			processor.updateTables();
+			return;
+		}
+
+		if (e.getSource() == btSetting) {
+			processor.settingSound();
 			return;
 		}
 	}
