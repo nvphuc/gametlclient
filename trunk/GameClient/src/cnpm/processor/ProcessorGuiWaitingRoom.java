@@ -120,11 +120,12 @@ public class ProcessorGuiWaitingRoom extends Processor implements Runnable {
 			MyDialog myDialog = new MyDialog();
 			String[] buttons = { "ĐẤU 2", "ĐẤU 4", "HỦY" };
 			int roomSize = myDialog.showMessage(gui, "Xác nhận", "Chọn loại phòng", buttons);
-			if (roomSize != -1) {
+			if (roomSize != -1 && roomSize!=2) {
 				/*
 				 * Gui message tao phong len server Cau truc message:
 				 * "CreateTable@TenPhong:bet:songuoichoi"
 				 */
+				System.out.println("hghgh");
 				getConnector().sendMessage("CreateTable@" + TableName + ":100:" + (roomSize * 2 + 2));
 			}
 		}
