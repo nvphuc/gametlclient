@@ -3,6 +3,8 @@ package cnpm.processor;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.JOptionPane;
 
@@ -108,6 +110,11 @@ public class ProcessorGuiWaitingRoom extends Processor implements Runnable {
 	public void createTable() {
 		MyInputDialog inputDialog = new MyInputDialog();
 		String TableName = inputDialog.showMessage(gui,0 ,"Inform", "Nhập tên bàn:");
+		if (checkString(TableName)) {
+			String[] args = {"OK"};
+			new MyDialog().showMessage(gui, "", "Tên bàn không được chứa ký tự đặc biệt", args);
+			return;
+		}
 		if (TableName != null) {
 			while (TableName.equals("") || TableName.length() > 10) {
 				String input = inputDialog.showMessage(gui,0 ,"Inform", "Nhập tên bàn (Từ 1 đến 10 ký tự):");
@@ -200,5 +207,10 @@ public class ProcessorGuiWaitingRoom extends Processor implements Runnable {
 	public void settingSound() {
 		// TODO Auto-generated method stub
 		
+	}
+	private boolean checkString(String str) {
+		Pattern p = Pattern.compile("[^a-z0-9]", Pattern.CASE_INSENSITIVE);
+		Matcher m = p.matcher(str);
+		return (m.find());
 	}
 }
