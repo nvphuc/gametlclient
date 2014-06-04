@@ -107,10 +107,10 @@ public class ProcessorGuiWaitingRoom extends Processor implements Runnable {
 	
 	public void createTable() {
 		MyInputDialog inputDialog = new MyInputDialog();
-		String TableName = inputDialog.showMessage(gui, "Inform", "Nhập tên bàn:");
+		String TableName = inputDialog.showMessage(gui,0 ,"Inform", "Nhập tên bàn:");
 		if (TableName != null) {
 			while (TableName.equals("") || TableName.length() > 10) {
-				String input = inputDialog.showMessage(gui, "Inform", "Nhập tên bàn (Từ 1 đến 10 ký tự):");
+				String input = inputDialog.showMessage(gui,0 ,"Inform", "Nhập tên bàn (Từ 1 đến 10 ký tự):");
 				TableName = input;
 				if (TableName == null)
 					break;
@@ -194,5 +194,10 @@ public class ProcessorGuiWaitingRoom extends Processor implements Runnable {
 
 		/* Repaint lai pnTables */
 		gui.scrollPaneTable.getContainer().repaint();
+	}
+
+	public void settingSound() {
+		// TODO Auto-generated method stub
+		
 	}
 }
