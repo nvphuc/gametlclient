@@ -2,6 +2,8 @@ package cnpm.processor;
 
 import java.awt.FileDialog;
 import java.awt.Frame;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.ImageIcon;
 
@@ -72,10 +74,16 @@ public class ProcessorGuiEdit extends Processor {
 	}
 
 	public void sendUpdateUserName(String newUserName) {
+		if (checkString(newUserName)) {
+			String[] args = {"OK"};
+			new MyDialog().showMessage(gui, "", "UserName không được chứa ký tự đặc biệt", args);
+			return;
+		}
 		if (!newUserName.equals(getPlayer().getUsername())) {
 			MyInputDialog inputDialog = new MyInputDialog();
 			String pass2 = inputDialog.showMessage(gui, 1, "Inform",
 					"Nhập mật khẩu bảo mật (Pass 2): ");
+			
 			if (pass2 != null) {
 				getConnector().sendMessage(
 						"UpdateUserName@" + newUserName + ":" + pass2);
@@ -96,6 +104,11 @@ public class ProcessorGuiEdit extends Processor {
 	}
 
 	public void sendUpdatePassword(String newPass) {
+		if (checkString(newPass)) {
+			String[] args = {"OK"};
+			new MyDialog().showMessage(gui, "", "Pass không được chứa ký tự đặc biệt", args);
+			return;
+		}
 		MyInputDialog inputDialog = new MyInputDialog();
 		String pass2 = inputDialog.showMessage(gui, 1, "Inform",
 				"Nhập mật khẩu bảo mật (Pass 2): ");
@@ -113,5 +126,10 @@ public class ProcessorGuiEdit extends Processor {
 						.showMessage(gui, "", "ĐỔI PASSWORD THẤT BẠI", bt);
 			}
 		}
+	}
+	private boolean checkString(String str) {
+		Pattern p = Pattern.compile("[^a-z0-9]", Pattern.CASE_INSENSITIVE);
+		Matcher m = p.matcher(str);
+		return (m.find());
 	}
 }
