@@ -49,6 +49,8 @@ public class SoundManager {
 					audioClip.start();
 					while (!playCompleted) {
 						try {
+							if(!turnSoundBackGround)
+								break;
 							Thread.sleep(1000);
 						} catch (InterruptedException ex) {
 						}
@@ -74,7 +76,7 @@ public class SoundManager {
 	public void playSound(final String strName) {
 		if (turnSound) {
 			new Thread(new Runnable() {
-				String path = "musics/" + strName + ".wav";
+				String path = "sounds/" + strName + ".wav";
 				File audioFile = new File(path);
 				boolean playCompleted = false;
 
