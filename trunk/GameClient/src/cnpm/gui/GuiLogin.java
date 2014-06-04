@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.BevelBorder;
 
 import cnpm.game.Game;
 import cnpm.gui.component.HintPasswordField;
@@ -23,7 +24,7 @@ public class GuiLogin extends Gui {
 	private JPanel pnLogin;
 
 	public GuiLogin(Game game, Point location) {
-		super(game, location, "BackGround1");
+		super(game, location, "BackGround4");
 		setTitle("Login");
 		setGui();
 		processor = new ProcessorGuiLogin(this);
@@ -36,7 +37,9 @@ public class GuiLogin extends Gui {
 		pnLogin = new JPanel();
 		pnLogin.setBounds(650, 75, 240, 350);
 		pnLogin.setLayout(null);
-		pnLogin.setBackground(Color.WHITE);
+		pnLogin.setOpaque(false);
+		pnLogin.setBorder(new BevelBorder(BevelBorder.RAISED));
+		//pnLogin.setBackground(Color.WHITE);
 		
 		// Tao textfield username
 		tfUsername = new HintTextField("username");

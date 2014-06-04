@@ -22,7 +22,7 @@ public class GuiRegister extends Gui {
 
 	private JTextField tfUsername, tfPass1, tfConfirmPass1, tfPass2;
 	private JButton btOk, btCancel;
-	JPanel pnRegister;
+	private JPanel pnRegister;
 
 	public GuiRegister(Game game, Point location) {
 		super(game, location, "BackGround1");
@@ -113,12 +113,11 @@ public class GuiRegister extends Gui {
 			String pass1 = tfPass1.getText();
 			String cfPass1 = tfConfirmPass1.getText();
 			String pass2 = tfPass2.getText();		
-			((ProcessorRegister) processor).register(userName, pass1, cfPass1, pass2);
+			processor.register(userName, pass1, cfPass1, pass2);
 		}
 
 		if (e.getSource() == btCancel) {
-			((ProcessorRegister) processor).cancel();
+			processor.cancel();
 		}
-
 	}
 }
