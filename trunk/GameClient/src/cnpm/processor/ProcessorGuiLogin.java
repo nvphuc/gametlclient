@@ -1,7 +1,5 @@
 package cnpm.processor;
 
-import javax.swing.JOptionPane;
-
 import cnpm.gui.Gui;
 import cnpm.gui.GuiLogin;
 import cnpm.gui.GuiRegister;
@@ -23,7 +21,7 @@ public class ProcessorGuiLogin extends Processor {
 				message = getConnector().receiveMessage();
 				if (message.equals("OK")) {
 					getPlayer().setUsername(userName);
-					getPlayer().setMoney(Integer.parseInt(getConnector().receiveMessage()));
+					getPlayer().setCredit(Integer.parseInt(getConnector().receiveMessage()));
 					getPlayer().setAvatar(getConnector().receiveImage());
 					new GuiWaitingRoom(gui.getGame(), getGuiLocation());
 					gui.dispose();
