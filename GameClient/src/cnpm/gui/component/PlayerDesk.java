@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import cnpm.processor.ProcessorGuiPlay;
 
 public class PlayerDesk extends JPanel {
+
 	public int location;
 	public Avatar avatarPlayer;
 	public PanelHoldCards pnHandCards;
@@ -18,7 +19,7 @@ public class PlayerDesk extends JPanel {
 		super();
 		this.setLayout(null);
 		this.setOpaque(false);
-		
+
 		this.location = location;
 		this.avatarPlayer = new Avatar("");
 
@@ -51,11 +52,15 @@ public class PlayerDesk extends JPanel {
 		this.add(pnHandCards);
 	}
 
+	public int getCardsNumber() {
+		return pnHandCards.cards.size();
+	}
+
 	public void initCards() {
 		Vector<Card> cards = new Vector<Card>();
 		for (int i = 0; i < 13; i++) {
 			Card card = new Card();
-			if (this.location == 0) {
+			if (location == 0) {
 				final Card temp = card;
 				card.addMouseListener(new MouseAdapter() {
 					@Override
@@ -71,7 +76,7 @@ public class PlayerDesk extends JPanel {
 			}
 			cards.add(card);
 		}
-		pnHandCards.addCards(cards);		
+		pnHandCards.addCards(cards);
 	}
 
 	public void removeCard(Card card) {
@@ -85,7 +90,7 @@ public class PlayerDesk extends JPanel {
 		pnHandCards.removeCards(card);
 		pnHandCards.repaint();
 	}
-	
+
 	public void refreshCards() {
 		int cardsNumber = pnHandCards.cards.size();
 		int x = 0, y = 0, deltaX = 0, deltaY = 0;
