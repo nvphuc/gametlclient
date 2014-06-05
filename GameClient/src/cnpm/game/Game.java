@@ -19,11 +19,11 @@ public class Game {
 	public Game() {
 		connector = new Connector();
 		player = new Player();
-		//soundManager = new SoundManager("musics/background.wav");
+		soundManager = new SoundManager("musics/background.wav");
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		Point location = new Point((screenSize.width - 1000)/2, (screenSize.height - 650)/2);
-		//new GuiLogin(this, location);
-		new GuiPlay(this, location, 4);
+		new GuiLogin(this, location);
+		//new GuiPlay(this, location, 4);
 	}
 
 	public Connector getConnector() {
