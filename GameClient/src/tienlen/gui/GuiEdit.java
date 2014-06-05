@@ -15,6 +15,7 @@ import javax.swing.JTextField;
 import tienlen.game.Game;
 import tienlen.gui.Gui;
 import tienlen.gui.component.MyButton;
+import tienlen.gui.component.MyDialog;
 import tienlen.processor.ProcessorGuiEdit;
 
 public class GuiEdit extends Gui {
@@ -24,7 +25,7 @@ public class GuiEdit extends Gui {
 	private JButton btUpdateUN, btUpdateP, btUpdateA, btAvatar, btBack;
 	private JPanel pnAvatar, pnUserName, pnPass;
 	public ImageIcon image;
-	
+
 	public GuiEdit(Game game, Point location) {
 		super(game, location, "BackGround1");
 		processor = new ProcessorGuiEdit(this);
@@ -75,7 +76,7 @@ public class GuiEdit extends Gui {
 		btUpdateP.addActionListener(this);
 		btUpdateP.setBounds(210, 50, 100, 30);
 		pnPass.add(btUpdateP);
-		
+
 		// Tao panel Avatar
 		pnAvatar = new JPanel();
 		pnAvatar.setBounds(150, 100, 300, 340);
@@ -83,63 +84,78 @@ public class GuiEdit extends Gui {
 		pnAvatar.setOpaque(false);
 
 		image = game.getPlayer().getAvatar();
-		btAvatar = new JButton(){
+		btAvatar = new JButton() {
 			@Override
 			protected void paintComponent(Graphics g) {
 				super.paintComponent(g);
-				g.drawImage(image.getImage(), 0, 0, getWidth(), getHeight(), this);
+				g.drawImage(image.getImage(), 0, 0, getWidth(), getHeight(),
+						this);
 			}
 		};
 		btAvatar.setBackground(Color.ORANGE);
 		btAvatar.addActionListener(this);
 		btAvatar.setBounds(0, 0, 300, 300);
 		pnAvatar.add(btAvatar);
-		
+
 		btUpdateA = new JButton("UPDATE");
 		btUpdateA.addActionListener(this);
 		btUpdateA.setBounds(100, 310, 100, 30);
 		pnAvatar.add(btUpdateA);
-		
+
 		// Tao btBack
 		btBack = new MyButton("leftBt", "leftBt_Over", "leftBt");
 		btBack.addActionListener(this);
 		btBack.setBounds(20, 20, 100, 40);
-		
+
 		// Gan vao pnMain
 		pnMain.add(pnAvatar);
 		pnMain.add(pnUserName);
 		pnMain.add(pnPass);
 		pnMain.add(btBack);
-		
+
 		setVisible(true);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		ProcessorGuiEdit processor = (ProcessorGuiEdit) this.processor;
-		
+
 		if (e.getSource() == btAvatar) {
 			processor.getFileImage();
 		}
-		
+
 		if (e.getSource() == btUpdateA) {
 			processor.sendUpdateAvatar();
 		}
-		
+
 		if (e.getSource() == btBack) {
 			processor.sendBack();
 		}
-		
+
 		if (e.getSource() == btUpdateUN) {
-			processor.sendUpdateUserName(tfUsername.getText());
+			String newUsername = tfUsername.getText();
+			if (!newUsername.equals("")) {
+				processor.sendUpdateUserName(tfUsername.getText());
+			}
+			else {
+				String[] bts = {"XÁC NHẬN"};
+				new MyDialog().showMessage(this, "", "USERNAME TRỐNG", bts);
+			}
 		}
-		
+
 		if (e.getSource() == btUpdateP) {
-			processor.sendUpdatePassword(tfPass.getText());
+			String newPass = tfPass.getText();
+			if (!newPass.equals("")) {
+				processor.sendUpdatePassword(tfPass.getText());
+			}
+			else {
+				String[] bts = {"XÁC NHẬN"};
+				new MyDialog().showMessage(this, "", "PASSWORD TRỐNG", bts);
+			}
 		}
-		
+
 	}
-	
+
 	public void repaintAvatar() {
 		btAvatar.repaint();
 	}
