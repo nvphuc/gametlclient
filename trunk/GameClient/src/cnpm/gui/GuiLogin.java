@@ -24,7 +24,7 @@ public class GuiLogin extends Gui {
 	private JPanel pnLogin;
 
 	public GuiLogin(Game game, Point location) {
-		super(game, location, "BackGround4");
+		super(game, location, "BackGround0");
 		setTitle("Login");
 		setGui();
 		processor = new ProcessorGuiLogin(this);
