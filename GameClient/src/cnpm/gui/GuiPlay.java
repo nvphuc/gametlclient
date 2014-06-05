@@ -18,29 +18,28 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import cnpm.game.Game;
+import cnpm.gui.component.Effect;
 import cnpm.gui.component.MyPanel;
 import cnpm.gui.component.PanelHoldCards;
 import cnpm.gui.component.PlayerDesk;
-import cnpm.gui.component.TheBai;
 import cnpm.processor.ProcessorGuiPlay;
 
 public class GuiPlay extends Gui {
 
 	public int tableSize;
-	
+
 	// hien thi vi tri ghe cua nguoi choi
 	public PlayerDesk[] playerDesk;
 
 	// vung danh cac la bai xuong ban
 	public PanelHoldCards[] pnTableCards;
-	
+
 	// hien thi mat ban
 	public JLabel lbTable;
-	
-	public JPanel pnTableCard1, pnTableCard3, pnTableCard4, pnTableCard2;
 
 	// Nut danh bai, bo luot, san sang
-	public JButton btHitCards, btSkipTurn, btReady;
+	public JButton btHitCards, btSkipTurn, btDeselectAll, btReady, btInvite,
+			btLeaveTable;
 
 	// Khung chat
 	public JPanel pnChat;
@@ -48,93 +47,91 @@ public class GuiPlay extends Gui {
 	public JTextArea txtContent;
 	public JTextField txtChat;
 	public JButton btSendChat;
-	
-	
-	public GuiPlay(Game game, Point location, int tableSize) {
-		super(game, location, "BackGround1");
+
+	public GuiPlay(Game game, Point location, int tableSize, int orderNumber) {
+		super(game, location, "BackGround0");
 		setTitle("Play Game");
 		this.tableSize = tableSize;
-		//processor = new ProcessorGuiPlay(this);
+
+		processor = new ProcessorGuiPlay(this, orderNumber);
 		setGui();
-		//Thread thread = new Thread((ProcessorGuiPlay) processor);
-		//thread.start();
+		Thread thread = new Thread((ProcessorGuiPlay) processor);
+		thread.start();
 	}
 
 	@Override
 	public void setGui() {
-		
-		// Tao mat ban
-		lbTable = new JLabel() {
-			@Override
-			protected void paintComponent(Graphics g) {
-				ImageIcon image = new ImageIcon("images/TablePlay.png");
-				g.drawImage(image.getImage(), 0, 0, getWidth(), getHeight(), null);
-			}
-		};
-		lbTable.setBounds(250, 150, 500, 280);
-		pnMain.add(lbTable);
-		
+
 		// Tao tabledesk
 		playerDesk = new PlayerDesk[tableSize];
-		
-		for(int i = 0; i < tableSize; i++) {
-			playerDesk[i] = new PlayerDesk(i*(4/tableSize));
+
+		for (int i = 0; i < tableSize; i++) {
+			playerDesk[i] = new PlayerDesk(i * (4 / tableSize));
 			pnMain.add(playerDesk[i]);
 		}
-		
+
 		// tablecard
 		pnTableCards = new PanelHoldCards[tableSize];
-		for(int i = 0; i < tableSize; i++) {
-			
-			switch(i*(4/tableSize)) {
+		for (int i = 0; i < tableSize; i++) {
+
+			switch (i * (4 / tableSize)) {
 			case 0:
-				pnTableCards[i] = new PanelHoldCards(411, 300, 0);
+				pnTableCards[i] = new PanelHoldCards(370, 300, 0);
 				pnMain.add(pnTableCards[i]);
 				break;
-				
+
 			case 2:
-				pnTableCards[i] = new PanelHoldCards(301, 180, 0);
+				pnTableCards[i] = new PanelHoldCards(320, 180, 0);
 				pnMain.add(pnTableCards[i]);
 				break;
-				
+
 			case 1:
-				pnTableCards[i] = new PanelHoldCards(481, 120, 0);
+				pnTableCards[i] = new PanelHoldCards(390, 300, 2);
 				pnMain.add(pnTableCards[i]);
 				break;
-				
+
 			case 3:
-				pnTableCards[i] = new PanelHoldCards(231, 120, 0);
+				pnTableCards[i] = new PanelHoldCards(290, 240, 2);
 				pnMain.add(pnTableCards[i]);
 				break;
 			}
 		}
-		
-		// Test
-		for(int i = 0; i < tableSize; i++) {
-			pnTableCards[i].setOpaque(true);
-		}
-		
+
+		// nut san sang
+		btReady = new JButton("SẴN SÀNG");
+		btReady.addActionListener(this);
+		btReady.setBounds(310, 580, 100, 25);
+		pnMain.add(btReady);
+
+		// nut san sang
+		btDeselectAll = new JButton("BỎ CHỌN");
+		btDeselectAll.addActionListener(this);
+		btDeselectAll.setBounds(440, 580, 100, 25);
+		pnMain.add(btDeselectAll);
+
 		// nut danh bai
-		btHitCards = new JButton("Ä�Ã¡nh BÃ i");
+		btHitCards = new JButton("ĐÁNH BÀI");
 		btHitCards.addActionListener(this);
-		btHitCards.setEnabled(false);
-		btHitCards.setBounds(800, 521, 90, 25);
+		btHitCards.setBounds(570, 580, 100, 25);
 		pnMain.add(btHitCards);
 
 		// nut bo luot
-		btSkipTurn = new JButton("Bá»� LÆ°á»£t");
+		btSkipTurn = new JButton("BỎ LƯỢT");
 		btSkipTurn.addActionListener(this);
-		btSkipTurn.setEnabled(false);
-		btSkipTurn.setBounds(800, 557, 90, 25);
+		btSkipTurn.setBounds(700, 580, 90, 25);
 		pnMain.add(btSkipTurn);
-
-		// nut san sang
-		btReady = new JButton("Sáºµn SÃ ng");
-		btReady.addActionListener(this);
-		btReady.setEnabled(true);
-		btReady.setBounds(800, 486, 90, 25);
-		pnMain.add(btReady);
 		
+		// nut moi nguoi choi
+		btInvite = new JButton("MỜI");
+		btInvite.addActionListener(this);
+		btInvite.setBounds(900, 490, 90, 50);
+		//pnMain.add(btInvite);
+
+		// roi ban
+		btLeaveTable = new JButton("RỜI BÀN");
+		btLeaveTable.addActionListener(this);
+		btLeaveTable.setBounds(900, 560, 90, 50);
+		pnMain.add(btLeaveTable);
 
 		// Tao khung chat ==================================
 		pnChat = new MyPanel("BackGround2");
@@ -164,7 +161,19 @@ public class GuiPlay extends Gui {
 		btSendChat.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		btSendChat.setBounds(233, 153, 40, 25);
 		pnChat.add(btSendChat);
-		
+
+		// Tao mat ban
+		lbTable = new JLabel() {
+			@Override
+			protected void paintComponent(Graphics g) {
+				ImageIcon image = new ImageIcon("images/TablePlay.png");
+				g.drawImage(image.getImage(), 0, 0, getWidth(), getHeight(),
+						null);
+			}
+		};
+		lbTable.setBounds(250, 150, 500, 280);
+		pnMain.add(lbTable);
+
 		setVisible(true);
 	}
 
@@ -173,22 +182,44 @@ public class GuiPlay extends Gui {
 		ProcessorGuiPlay processor = (ProcessorGuiPlay) this.processor;
 
 		if (e.getSource() == btHitCards) {
-			//processor.hitCards();
+			processor.hitCards();
 		}
 		if (e.getSource() == btSkipTurn) {
-			//processor.skipTurn();
+			processor.skipTurn();
 		}
 		if (e.getSource() == btReady) {
-			for(int i = 0; i < tableSize; i++) {
-				playerDesk[i].initCards();
-			}
-			//processor.ready();
+			processor.ready();
 		}
-		if (e.getSource() == txtChat) {
-			//processor.sendChat();
+		if (e.getSource() == btDeselectAll) {
+			processor.deselectAll();
 		}
-		if (e.getSource() == btSendChat) {
-			//processor.sendChat();
+		if (e.getSource() == btLeaveTable) {
+			processor.leaveTable();
 		}
+		if (e.getSource() == txtChat || e.getSource() == btSendChat) {
+			processor.sendChat(txtChat.getText());
+			txtChat.setText("");
+		}
+	}
+
+	public void showStartGame() {
+		getSoundManager().playSound("startgame");
+		btHitCards.setEnabled(false);
+		btSkipTurn.setEnabled(false);
+		String notice = "BAÉT ÑAÀU GAME";
+		Effect effect = new Effect(notice);
+		effect.setBounds((pnEffect.getWidth() - notice.length() * 60) / 2,
+				(pnEffect.getHeight() - 130) / 2, notice.length() * 60, 130);
+		pnEffect.add(effect);
+		pnEffect.repaint();
+	}
+	
+	public void showWinner(int result) {
+		String notice = "VEÀ THÖÙ " + result;
+		Effect effect = new Effect(notice);
+		effect.setBounds((pnEffect.getWidth() - notice.length() * 60) / 2,
+				(pnEffect.getHeight() - 130) / 2, notice.length() * 60, 130);
+		pnEffect.add(effect);
+		pnEffect.repaint();
 	}
 }
