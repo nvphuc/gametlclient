@@ -75,13 +75,4 @@ public class Connector {
 			return null;
 		} 	
 	}
-	
-	public InforTable receiveInforTable(){		
-		try {		
-			InforTable infor = (InforTable) ois.readObject();
-			return infor;
-		} catch (IOException | ClassNotFoundException e) {
-			return null;
-		} 	
-	}
 }
