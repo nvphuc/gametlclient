@@ -10,12 +10,14 @@ import javax.swing.JButton;
 public class Table extends JButton {
 
 	private String name;
+	private int amountBet;
 	private Image image;
 	private Image imageMouseOver;
 	
-	public Table(String name) {
+	public Table(String name, int bet) {
 		super();
 		this.name = name;
+		this.amountBet = bet;
 		image = (new ImageIcon("images/Table.png")).getImage();
 		imageMouseOver = (new ImageIcon("images/Table_MouseOver.png")).getImage();
 		setContentAreaFilled(false);
@@ -33,6 +35,10 @@ public class Table extends JButton {
 		else {
 			g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
 		}
+	}
+	
+	public int getAmountBet() {
+		return amountBet;
 	}
 	
 	public Dimension getPreferredSize() {

@@ -21,15 +21,22 @@ public class Avatar extends JPanel {
 
 	public Avatar(String userName) {
 		this.setOpaque(false);
-		//this.userName = userName;
-		this.userName = "Thu thoi nghe";
-		this.credits = "99999";
+		this.userName = userName;
+		this.credits = "";
 		this.ready = "";
 		this.imgBoder = (new ImageIcon("images/chairBorder.png")).getImage();
 		this.imgAvatar = (new ImageIcon("")).getImage();
 		if (userName.length() * 9.5 > 100) {
 			width = (int) (userName.length() * 9.5);
 		}
+	}
+	
+	public void reset() {
+		this.userName = "";
+		this.credits = "";
+		this.imgBoder = (new ImageIcon("images/chairBorder.png")).getImage();
+		this.imgAvatar = (new ImageIcon("")).getImage();
+		this.repaint();
 	}
 
 	@Override
